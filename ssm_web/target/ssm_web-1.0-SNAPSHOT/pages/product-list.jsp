@@ -1,6 +1,8 @@
 <%@ page language="java" isELIgnored="false" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
 <!-- 页面meta -->
@@ -114,7 +116,7 @@
 										<i class="fa fa-file-o"></i> 新建
 									</button>
 									<button type="button" class="btn btn-default" title="删除"
-										onclick='confirm("你确认要删除吗？")'>
+										onclick='delMeny()'>
 										<i class="fa fa-trash-o"></i> 删除
 									</button>
 									<button type="button" class="btn btn-default" title="开启"
@@ -141,170 +143,59 @@
 						</div>
 						<!--工具栏/-->
 
-						<!--数据列表-->
-						<table id="dataList"
-							class="table table-bordered table-striped table-hover dataTable">
-							<thead>
+						<form id="delform" action="${pageContext.request.contextPath}/product/delMeny" method="post">
+							<!--数据列表-->
+							<table id="dataList"
+								   class="table table-bordered table-striped table-hover dataTable">
+								<thead>
 								<tr>
 									<th class="" style="padding-right: 0px;"><input
-										id="selall" type="checkbox" class="icheckbox_square-blue">
+											id="selall" type="checkbox" class="icheckbox_square-blue">
 									</th>
 									<th class="sorting_asc">ID</th>
 
-									<th class="sorting">订单号</th>
-									<th class="sorting">路线名称</th>
-									<th class="sorting">购买会员</th>
-									<th class="sorting">出发日期</th>
-									<th class="sorting">申请日期</th>
-									<th class="sorting">状态</th>
-									<th class="sorting">审核</th>
-									<th class="sorting">支付</th>
-									<th class="sorting">操作员</th>
+									<th class="sorting">产品编号</th>
+									<th class="sorting">产品名称</th>
+									<th class="sorting">出发城市</th>
+									<th class="sorting">出发时间</th>
+									<th class="sorting">产品价格</th>
+									<th class="sorting">产品状态</th>
 
 									<th class="text-center">操作</th>
 								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td><input name="ids" type="checkbox"></td>
-									<td>1</td>
+								</thead>
+								<tbody>
+								<c:forEach var="product" items="${products}">
+									<tr>
+										<td><input name="ids" value="${product.id}" type="checkbox"></td>
+										<td>${product.id}</td>
 
-									<td>L1608111173</td>
-									<td>温泉之旅·江西婺源+三清山3日跟团游(3钻)</td>
-									<td>Iamzhao</td>
-									<td>2016-09-06</td>
-									<td>2016-09-03</td>
-									<td>已处理</td>
-									<td>已审</td>
-									<td>已付</td>
-									<td>admin</td>
+										<td>${product.productNum}</td>
+										<td>${product.productName}</td>
+										<td>${product.cityName}</td>
+										<td>
+												<%--日期格式化--%>
+											<fmt:formatDate value="${product.departureTime}" pattern="YYYY-MM-dd"></fmt:formatDate>
+										</td>
+										<td>${product.productPrice}</td>
+										<td>${product.productStatus == 1 ? "开启":"关闭"}</td>
 
-									<td class="text-center">
-										<button type="button" class="btn bg-olive btn-xs"
-											onclick='location.href="all-order-manage-edit.html"'>订单</button>
-										<button type="button" class="btn bg-olive btn-xs"
-											onclick='location.href="all-order-manage-edit.html"'>查看</button>
-									</td>
-								</tr>
+										<td class="text-center">
+											<button type="button" class="btn bg-olive btn-xs"
+													onclick='location.href="all-order-manage-edit.html"'>订单</button>
+											<button type="button" class="btn bg-olive btn-xs"
+													onclick='location.href="${pageContext.request.contextPath}/product/updateUI?id=${product.id}"'>修改</button>
+											<button type="button" class="btn bg-olive btn-xs"
+													onclick='delone(${product.id})'>删除</button>
+										</td>
+									</tr>
+								</c:forEach>
+								</tbody>
 
+							</table>
+							<!--数据列表/-->
+						</form>
 
-								<tr>
-									<td><input name="ids" type="checkbox"></td>
-									<td>2</td>
-
-									<td>L1608111173</td>
-									<td>温泉之旅·江西婺源+三清山3日跟团游(3钻)</td>
-									<td>Iamzhao</td>
-									<td>2016-09-06</td>
-									<td>2016-09-03</td>
-									<td>已处理</td>
-									<td>已审</td>
-									<td>已付</td>
-									<td>admin</td>
-
-									<td class="text-center">
-										<button type="button" class="btn bg-olive btn-xs"
-											onclick='location.href="all-order-manage-edit.html"'>订单</button>
-										<button type="button" class="btn bg-olive btn-xs"
-											onclick='location.href="all-order-manage-edit.html"'>查看</button>
-									</td>
-								</tr>
-
-
-								<tr>
-									<td><input name="ids" type="checkbox"></td>
-									<td>3</td>
-
-									<td>L1608111173</td>
-									<td>温泉之旅·江西婺源+三清山3日跟团游(3钻)</td>
-									<td>Iamzhao</td>
-									<td>2016-09-06</td>
-									<td>2016-09-03</td>
-									<td>已处理</td>
-									<td>已审</td>
-									<td>已付</td>
-									<td>admin</td>
-
-									<td class="text-center">
-										<button type="button" class="btn bg-olive btn-xs"
-											onclick='location.href="all-order-manage-edit.html"'>订单</button>
-										<button type="button" class="btn bg-olive btn-xs"
-											onclick='location.href="all-order-manage-edit.html"'>查看</button>
-									</td>
-								</tr>
-
-
-								<tr>
-									<td><input name="ids" type="checkbox"></td>
-									<td>4</td>
-
-									<td>L1608111173</td>
-									<td>温泉之旅·江西婺源+三清山3日跟团游(3钻)</td>
-									<td>Iamzhao</td>
-									<td>2016-09-06</td>
-									<td>2016-09-03</td>
-									<td>已处理</td>
-									<td>已审</td>
-									<td>已付</td>
-									<td>admin</td>
-
-									<td class="text-center">
-										<button type="button" class="btn bg-olive btn-xs"
-											onclick='location.href="all-order-manage-edit.html"'>订单</button>
-										<button type="button" class="btn bg-olive btn-xs"
-											onclick='location.href="all-order-manage-edit.html"'>查看</button>
-									</td>
-								</tr>
-
-
-								<tr>
-									<td><input name="ids" type="checkbox"></td>
-									<td>5</td>
-
-									<td>L1608111173</td>
-									<td>温泉之旅·江西婺源+三清山3日跟团游(3钻)</td>
-									<td>Iamzhao</td>
-									<td>2016-09-06</td>
-									<td>2016-09-03</td>
-									<td>已处理</td>
-									<td>已审</td>
-									<td>已付</td>
-									<td>admin</td>
-
-									<td class="text-center">
-										<button type="button" class="btn bg-olive btn-xs"
-											onclick='location.href="all-order-manage-edit.html"'>订单</button>
-										<button type="button" class="btn bg-olive btn-xs"
-											onclick='location.href="all-order-manage-edit.html"'>查看</button>
-									</td>
-								</tr>
-
-
-								<tr>
-									<td><input name="ids" type="checkbox"></td>
-									<td>6</td>
-
-									<td>L1608111173</td>
-									<td>温泉之旅·江西婺源+三清山3日跟团游(3钻)</td>
-									<td>Iamzhao</td>
-									<td>2016-09-06</td>
-									<td>2016-09-03</td>
-									<td>已处理</td>
-									<td>已审</td>
-									<td>已付</td>
-									<td>admin</td>
-
-									<td class="text-center">
-										<button type="button" class="btn bg-olive btn-xs"
-											onclick='location.href="all-order-manage-edit.html"'>订单</button>
-										<button type="button" class="btn bg-olive btn-xs"
-											onclick='location.href="all-order-manage-edit.html"'>查看</button>
-									</td>
-								</tr>
-							</tbody>
-
-						</table>
-						<!--数据列表/-->
 
 						<!--工具栏-->
 						<div class="pull-left">
@@ -404,6 +295,21 @@
 		src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/plugins/jQueryUI/jquery-ui.min.js"></script>
+	<script type="text/javascript">
+		function delone(id) {
+			if (confirm("您确定要删除吗？")){
+			//	执行删除
+				location.href = "${pageContext.request.contextPath}/product/delOne?id="+id;
+			}
+		}
+
+		function delMeny() {
+			if (confirm("您确定要删除选择的商品吗？")){
+				var delForm = $("#delform");
+				delForm.submit();
+			}
+		}
+	</script>
 	<script>
 		$.widget.bridge('uibutton', $.ui.button);
 	</script>

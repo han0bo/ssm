@@ -1,6 +1,7 @@
 <%@ page language="java" isELIgnored="false" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
 <!-- 页面meta -->
@@ -92,7 +93,7 @@
 			</section>
 			<!-- 内容头部 /-->
 
-			<form action="${pageContext.request.contextPath}/product/update.do"
+			<form action="${pageContext.request.contextPath}/product/update"
 				method="post">
 				<input type="hidden" name="id" value="${product.id}">
 				<!-- 正文区域 -->
@@ -140,9 +141,9 @@
 
 						<div class="col-md-2 title">产品状态</div>
 						<div class="col-md-4 data">
-							<select class="form-control select2" style="width: 100%"
+							<select id="productStatus" class="form-control select2" style="width: 100%"
 								name="productStatus">
-								<option value="0" selected="selected">关闭</option>
+								<option value="0">关闭</option>
 								<option value="1">开启</option>
 							</select>
 						</div>
@@ -181,7 +182,14 @@
 
 
 	<script
-		src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js"></script>
+		src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js">
+	</script>
+
+	<script type="text/javascript">
+		// 选择产品状态
+		$("#productStatus option[value=${product.productStatus}]").prop("selected","selected")
+	</script>
+
 	<script
 		src="${pageContext.request.contextPath}/plugins/jQueryUI/jquery-ui.min.js"></script>
 	<script>

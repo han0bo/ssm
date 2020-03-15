@@ -14,12 +14,21 @@
     <!--视图解析器-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/pages/"/>
-        <property name="suffix" value=",jsp"/>
+        <property name="suffix" value=".jsp"/>
     </bean>
 
     <!--注解驱动-->
-    <mvc:annotation-driven/>
+    <mvc:annotation-driven conversion-service="conversionService"/>
 
     <!--静态资源放行-->
     <mvc:default-servlet-handler></mvc:default-servlet-handler>
+
+    <!--类型转换器工厂类-->
+    <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <bean class="net.togogo.converter.StringToDateConverter"/>
+            </set>
+        </property>
+    </bean>
 </beans>
