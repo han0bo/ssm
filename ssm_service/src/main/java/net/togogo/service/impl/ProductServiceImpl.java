@@ -1,5 +1,8 @@
 package net.togogo.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import net.togogo.domain.PageBean;
 import net.togogo.domain.Product;
 import net.togogo.mapper.ProductMapper;
 import net.togogo.service.ProductService;
@@ -74,5 +77,47 @@ public class ProductServiceImpl implements ProductService {
                 productMapper.delById(id);
             }
         }
+    }
+
+    /**
+     * 分页查询
+     * @param currPage
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public PageBean<Product> findByPage(Integer currPage, Integer pageSize) {
+        PageBean<Product> pageBean = new PageBean<>();
+
+        pageBean.setCurrPage(currPage);
+        pageBean.setPageSize(pageSize);
+
+        Long totalCount = productMapper.findTotalCount();
+        pageBean.setTotalCount(totalCount);
+
+        pageBean.setTotalPage((int) Math.ceil(totalCount * 1.0 / pageSize));
+
+        Integer startIndex = (currPage - 1) * pageSize;
+
+        List<Product> products =  productMapper.findByPage(startIndex,pageSize);
+        pageBean.setList(products);
+
+        return pageBean;
+    }
+
+    /**
+     * 使用mybatis分页插件实现分页
+     * @param currPage
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public PageInfo<Product> findByPageHelper(Integer currPage, Integer pageSize) {
+        PageHelper.startPage(currPage,pageSize);
+        List<Product> products = productMapper.findAll();
+
+        PageInfo<Product> pageInfo = new PageInfo<>(products);
+
+        return pageInfo;
     }
 }

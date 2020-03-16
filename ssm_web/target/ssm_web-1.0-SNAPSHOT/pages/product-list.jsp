@@ -165,7 +165,7 @@
 								</tr>
 								</thead>
 								<tbody>
-								<c:forEach var="product" items="${products}">
+								<c:forEach var="product" items="${pageInfo.list}">
 									<tr>
 										<td><input name="ids" value="${product.id}" type="checkbox"></td>
 										<td>${product.id}</td>
@@ -244,27 +244,25 @@
 				<div class="box-footer">
 					<div class="pull-left">
 						<div class="form-group form-inline">
-							总共2 页，共14 条数据。 每页 <select class="form-control">
-								<option>10</option>
-								<option>15</option>
-								<option>20</option>
-								<option>50</option>
-								<option>80</option>
+							总共${pageInfo.pages}页，共${pageInfo.total} 条数据。 每页
+							<select id="pageSize" onchange="goPage(1)" class="form-control">
+								<option value="5" selected="selected">5</option>
+								<option value="10">10</option>
+								<option value="15">15</option>
+								<option value="20">20</option>
 							</select> 条
 						</div>
 					</div>
 
 					<div class="box-tools pull-right">
 						<ul class="pagination">
-							<li><a href="#" aria-label="Previous">首页</a></li>
-							<li><a href="#">上一页</a></li>
-							<li><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">5</a></li>
-							<li><a href="#">下一页</a></li>
-							<li><a href="#" aria-label="Next">尾页</a></li>
+							<li><a href="javascript:goPage(1)" aria-label="Previous">首页</a></li>
+							<li><a href="javascript:goPage(${pageInfo.prePage})">上一页</a></li>
+							<c:forEach var="pageNum" begin="1" end="${pageInfo.pages}">
+								<li><a href="javascript:goPage(${pageNum})">${pageNum}</a></li>
+							</c:forEach>
+							<li><a href="javascript:goPage(${pageInfo.nextPage})">下一页</a></li>
+							<li><a href="javascript:goPage(${pageInfo.pages})" aria-label="Next">尾页</a></li>
 						</ul>
 					</div>
 
@@ -308,6 +306,19 @@
 				var delForm = $("#delform");
 				delForm.submit();
 			}
+		}
+
+		$("#pageSize option[value=${pageInfo.pageSize}]").prop("selected","selected")
+
+		function goPage(pageNum) {
+
+			var pageSize = $("#pageSize").val();
+			if (pageNum < 1){
+				return ;
+			}else if (pageNum > ${pageInfo.pages}){
+				return;
+			}
+			location.href = "${pageContext.request.contextPath}/product/findAll?currPage=" + pageNum+"&pageSize="+pageSize;
 		}
 	</script>
 	<script>

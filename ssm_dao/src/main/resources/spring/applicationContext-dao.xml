@@ -21,6 +21,24 @@
     <!--创建SqlsessionFactoryBean对象-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
+        <!--引入分页插件-->
+        <!--方法一-->
+     <!--   <property name="plugins">
+            <array>
+                <bean class="com.github.pagehelper.PageInterceptor">
+                    &lt;!&ndash;告诉分页插件使用的是什么数据库&ndash;&gt;
+                    <property name="properties">
+                        <props>
+                            &lt;!&ndash;helperDialect：分页插件的方言&ndash;&gt;
+                            <prop key="helperDialect">mysql</prop>
+                        </props>
+                    </property>
+                </bean>
+            </array>
+        </property>-->
+
+        <!--方法二-->
+        <property name="configLocation" value="classpath:SqlMapperConfig.xml"/>
     </bean>
 
     <!--扫描包，创建dao接口，接口动态代理对象-->

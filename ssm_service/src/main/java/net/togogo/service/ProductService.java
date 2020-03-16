@@ -1,6 +1,8 @@
 package net.togogo.service;
 
 
+import com.github.pagehelper.PageInfo;
+import net.togogo.domain.PageBean;
 import net.togogo.domain.Product;
 
 import java.util.List;
@@ -18,4 +20,8 @@ public interface ProductService {
     void delOne(Integer id);
 
     void delMeny(Integer[] ids);
+
+    PageBean<Product> findByPage(Integer currPage, Integer pageSize);
+
+    public PageInfo<Product> findByPageHelper(Integer currPage, Integer pageSize);
 }

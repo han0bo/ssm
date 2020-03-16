@@ -28,4 +28,9 @@ public interface ProductMapper {
     @Delete("delete from product where id = #{id}")
     void delById(Integer id);
 
+    @Select("select count(1) from product ")
+    Long findTotalCount();
+
+    @Select("select * from product limit #{param1},#{param2} ")
+    List<Product> findByPage(Integer startIndex, Integer pageSize);
 }
