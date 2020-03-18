@@ -1,18 +1,18 @@
 package net.togogo.domain;
 
 public class SysUser {
-    private Long id;
+    private Integer id;
     private String username;
     private String email;
     private String password;
     private String phoneNum;
-    private int status;
+    private Integer status;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -48,11 +48,11 @@ public class SysUser {
         this.phoneNum = phoneNum;
     }
 
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
