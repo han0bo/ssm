@@ -13,7 +13,7 @@ public interface SysUserMapper {
      * @param username
      * @return
      */
-    @Select("select * from sys_user where username = #{username} ")
+    @Select("select * from sys_user where username = #{username} and status = 1")
     SysUser findByUserName(String username);
 
     /**
@@ -29,4 +29,7 @@ public interface SysUserMapper {
      */
     @Insert("insert into sys_user values(null,#{username},#{email},#{password},#{phoneNum},#{status})")
     void save(SysUser sysUser);
+
+    @Select("select * from sys_user where username = #{username}")
+    SysUser findAllUserByUserName(String username);
 }

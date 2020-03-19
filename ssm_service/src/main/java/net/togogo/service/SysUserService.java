@@ -18,8 +18,17 @@ public interface SysUserService extends UserDetailsService {
     List<SysUser> findAll();
 
     /**
+     * 根据用户名查询数据
+     * @param username
+     * @return
+     */
+    boolean findByUserName(String username);
+
+    /**
      * 保存用户
      * @param sysUser
      */
     void save(SysUser sysUser);
+
+
 }

@@ -9,7 +9,6 @@
 
     <!--对登录和失败页面放行-->
     <security:http pattern="/login.jsp" security="none"></security:http>
-    <security:http pattern="/error.jsp" security="none"></security:http>
     <security:http pattern="/favicon.ico" security="none"></security:http>
     <security:http pattern="/css/**" security="none"></security:http>
     <security:http pattern="/img/**" security="none"></security:http>

@@ -59,9 +59,16 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
+    public boolean findByUserName(String username) {
+        SysUser sysUser = sysUserMapper.findAllUserByUserName(username);
+        return sysUser == null;
+    }
+
+    @Override
     public void save(SysUser sysUser) {
         String encode = passwordEncoder.encode(sysUser.getPassword());
         sysUser.setPassword(encode);
         sysUserMapper.save(sysUser);
     }
 }
+

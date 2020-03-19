@@ -4,6 +4,7 @@ import net.togogo.domain.SysUser;
 import net.togogo.service.SysUserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
@@ -35,6 +36,12 @@ public class UserController {
         sysUserService.save(sysUser);
 
         return "redirect:/user/findAll";
+    }
 
+    @RequestMapping("/isUniqueName")
+    @ResponseBody
+    public String isUniqueName(String username){
+        boolean result = sysUserService.findByUserName(username);
+        return String.valueOf(result);
     }
 }

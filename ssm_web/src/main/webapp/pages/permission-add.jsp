@@ -90,7 +90,7 @@
 			</section>
 			<!-- 内容头部 /-->
 
-			<form action="${pageContext.request.contextPath}/permission/save.do"
+			<form action="${pageContext.request.contextPath}/permission/saveaobur"
 				method="post">
 				<!-- 正文区域 -->
 				<section class="content"> <!--产品信息-->
@@ -108,6 +108,12 @@
 						<div class="col-md-4 data">
 							<input type="text" class="form-control" name="url"
 								placeholder="url" value="">
+						</div>
+
+						<div class="col-md-2 title">父菜单id</div>
+						<div class="col-md-4 data">
+							<input type="text" class="form-control" name="pid"
+								   placeholder="pid" value="">
 						</div>
 										
 

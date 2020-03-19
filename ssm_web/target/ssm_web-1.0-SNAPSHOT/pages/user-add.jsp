@@ -102,7 +102,7 @@
 
 						<div class="col-md-2 title">用户名称</div>
 						<div class="col-md-4 data">
-							<input type="text" class="form-control" name="username"
+							<input type="text" class="form-control" id="username" name="username" onchange="isUniqueUserName()"
 								placeholder="用户名称" value="">
 						</div>
 						<div class="col-md-2 title">密码</div>
@@ -133,7 +133,7 @@
 				</div>
 				<!--订单信息/--> <!--工具栏-->
 				<div class="box-tools text-center">
-					<button type="submit" class="btn bg-maroon">保存</button>
+					<button id="savebtn" type="submit" class="btn bg-maroon">保存</button>
 					<button type="button" class="btn bg-default"z
 						onclick="history.back(-1);">返回</button>
 				</div>
@@ -160,6 +160,30 @@
 		src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/plugins/jQueryUI/jquery-ui.min.js"></script>
+
+	<script type="text/javascript">
+
+		function isUniqueUserName() {
+			var username = $("#username").val();
+			$.ajax({
+				url:"${pageContext.request.contextPath}/user/isUniqueName",
+				type:"post",
+				data:{"username":username},
+				success:function (data) {
+					if (data == "false"){
+						$("#username").attr("style","border:red 1px solid");
+						$("#savebtn").prop("disabled",true);
+					} else {
+						$("#username").attr("style","");
+						$("#savebtn").prop("disabled",false);
+					}
+				}
+			})
+
+		}
+
+	</script>
+
 	<script>
 		$.widget.bridge('uibutton', $.ui.button);
 	</script>

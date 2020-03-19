@@ -42,7 +42,7 @@
 							class="fa fa-circle-o"></i> 角色管理
 					</a></li>
 					<li id="system-setting"><a
-						href="${pageContext.request.contextPath}/pages/permission-list.jsp">
+						href="${pageContext.request.contextPath}/permission/findAll">
 							<i class="fa fa-circle-o"></i> 权限管理
 					</a></li>
 					<li id="system-setting"><a

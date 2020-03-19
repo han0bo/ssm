@@ -11,4 +11,10 @@ public interface RoleService {
      * @return
      */
     List<Role> findAll();
+
+    /**
+     * 添加角色
+     * @param role
+     */
+    void save(Role role);
 }
